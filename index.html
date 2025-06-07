@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>The Wastelander - Fallout 76 Companion App for iOS</title>
+    <meta name="title" content="The Wastelander - Fallout 76 Companion App for iOS">
+    <meta name="description" content="The Wastelander is the ultimate Fallout 76 companion app for iOS. Track events, explore interactive maps, manage checklists, and enhance your post-apocalyptic adventures.">
+    <meta name="author" content="Wesley Synnott">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thewastelander.app/">
+    <meta property="og:title" content="The Wastelander - Fallout 76 Companion App">
+    <meta property="og:description" content="The ultimate Fallout 76 companion app for iOS. Track events, explore maps, manage checklists, and more.">
+    <meta property="og:site_name" content="The Wastelander">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://thewastelander.app/">
+    <meta property="twitter:title" content="The Wastelander - Fallout 76 Companion App">
+    <meta property="twitter:description" content="The ultimate Fallout 76 companion app for iOS.">
+    <meta property="twitter:image" content="https://thewastelander.app/assets/images/twitter-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://thewastelander.app/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://ucarecdn.com https://submit-form.com https://app.rybbit.io 'unsafe-inline';
+        style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+        img-src 'self' data: https:;
+        connect-src 'self' https://submit-form.com https://api.botpoison.com https://app.rybbit.io;
+        frame-ancestors 'none';
+    ">
+    
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "The Wastelander",
+        "operatingSystem": "iOS",
+        "applicationCategory": "UtilitiesApplication",
+        "description": "The ultimate Fallout 76 companion app for iOS!",
+        "author": {
+            "@type": "Person",
+            "name": "Wesley Synnott"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        /* ==================== RESET & BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #B8B8B8;
+            background-color: #0D0D0D;
+            overflow-x: hidden;
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
+        h1, h2, h3, h4 {
+            color: #FFFFFF;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        a {
+            color: #FFD042;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #FFE784;
+        }
+
+        /* ==================== LAYOUT UTILITIES ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 208, 66, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFD042;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 208, 66, 0.5);
+            white-space: nowrap;
+        }
+
+        .logo:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 20px rgba(255, 208, 66, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #B8B8B8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #FFD042;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFD042;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 208, 66, 0.5);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0D0D0D 0%, #1A1A1A 100%);
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 13, 13, 0.7);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: #FFFFFF;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.2rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 0 30px rgba(255, 208, 66, 0.5);
+        }
+
+        .hero .presents {
+            font-size: 1.2rem;
+            color: #B8B8B8;
+            margin-bottom: 0.3rem;
+            font-weight: 300;
+            animation: fadeInUp 1.1s ease;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            animation: fadeInUp 1.2s ease;
+            text-shadow: 0 0 20px rgba(255, 208, 66, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #FFD042;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.3s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: #FFD042;
+            color: #0D0D0D;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            box-shadow: 0 0 20px rgba(255, 208, 66, 0.3);
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .cta-button:hover {
+            background: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 208, 66, 0.5);
+        }
+
+        /* ==================== FEATURES SECTION ==================== */
+        .features {
+            background: #1A1A1A;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #2D2D2D;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 208, 66, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 208, 66, 0.2);
+            border-color: #FFD042;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #FFD042;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+        }
+
+        .feature-card p {
+            color: #B8B8B8;
+        }
+
+        /* ==================== SCREENSHOTS SECTION ==================== */
+        .screenshots {
+            background: #0D0D0D;
+            padding: 5rem 0;
+        }
+
+        .screenshots-showcase {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto 3rem;
+        }
+
+        /* CSS iPhone Frame */
+        .phone {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            display: block;
+            background: #000;
+            border: 14px solid #111;
+            border-radius: 45px;
+            box-shadow: 
+                0 0 0 2px #333,
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 208, 66, 0.1);
+            overflow: hidden;
+        }
+
+        /* Dynamic Island [iPhone 14/15] */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            width: 126px;
+            height: 35px;
+            border-radius: 20px;
+            z-index: 10;
+            box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Alternative Notch Style [iPhone X-13] */
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            width: 160px;
+            height: 30px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Speaker and Camera Details */
+        .notch::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .notch::after {
+            content: '';
+            position: absolute;
+            top: 7px;
+            right: 30px;
+            width: 6px;
+            height: 6px;
+            background: #222;
+            border-radius: 50%;
+            box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Screen Container */
+        .screen-container {
+            position: relative;
+            width: 100%;
+            padding-top: 216.5%; /* iPhone aspect ratio */
+            background: #1A1A1A;
+            overflow: hidden;
+        }
+
+        /* Screenshot Slides */
+        .screenshot-slides {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .screenshot-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Placeholder */
+        .screenshot-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #1A1A1A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #B8B8B8;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255, 208, 66, 0.1);
+        }
+
+        /* Home Indicator (iPhone X+) */
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        /* Side Buttons */
+        .side-button {
+            position: absolute;
+            background: #222;
+            border-radius: 2px;
+        }
+
+        .power-button {
+            right: -17px;
+            top: 120px;
+            width: 3px;
+            height: 80px;
+        }
+
+        .volume-up {
+            left: -17px;
+            top: 100px;
+            width: 3px;
+            height: 50px;
+        }
+
+        .volume-down {
+            left: -17px;
+            top: 160px;
+            width: 3px;
+            height: 50px;
+        }
+
+        .mute-switch {
+            left: -17px;
+            top: 60px;
+            width: 3px;
+            height: 30px;
+        }
+
+        /* Navigation */
+        .screenshot-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .screenshot-nav button {
+            background: transparent;
+            border: 2px solid #FFD042;
+            color: #FFD042;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-nav button:hover {
+            color: #FFFFFF;
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(255, 208, 66, 0.8);
+        }
+
+        /* Info Section */
+        .screenshot-info {
+            text-align: center;
+            margin-top: 1rem;
+            min-height: 80px;
+        }
+
+        .screenshot-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #FFD042;
+        }
+
+        .screenshot-info p {
+            color: #B8B8B8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* SEO Hidden Content */
+        .seo-content {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        /* ==================== DOWNLOAD SECTION ==================== */
+        .download {
+            background: #1A1A1A;
+            text-align: center;
+        }
+
+        .download-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Headline */
+        .download h2 {
+            color: #FFFFFF;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* App Showcase/Mockup */
+        .app-showcase {
+            margin: 2rem 0;
+        }
+
+        .app-mockup {
+            max-width: 300px;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+        }
+
+        /* App Name */
+        .app-name {
+            color: #FFFFFF;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+        }
+
+        /* App Tagline/Subtitle */
+        .app-tagline {
+            color: #B8B8B8;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        /* App Store Badge - Subordinate Position */
+        .app-store-link {
+            display: inline-block;
+            margin-top: 1rem;
+            transition: transform 0.3s ease;
+            /* Ensure Badge is in Subordinate Position */
+            opacity: 0.9;
+        }
+
+        .app-store-link:hover {
+            /* Subtle Hover Effect - No Animation/Angling Per Guidelines */
+            transform: scale(1.02);
+            opacity: 1;
+        }
+
+        .app-store-badge {
+            width: 180px; /* Subordinate Size to Main Content */
+            height: auto;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+            /* Ensure badge maintains its original proportions - no modifications */
+            object-fit: contain;
+        }
+
+        /* Pre-Order Specific Styling */
+        .pre-order-badge {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+            object-fit: contain;
+        }
+
+        .download-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #B8B8B8;
+            font-style: italic;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact {
+            background: #0D0D0D;
+            color: #B8B8B8;
+            border-top: 1px solid rgba(255, 208, 66, 0.1);
+        }
+
+        .contact h2 {
+            color: #FFFFFF;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #B8B8B8;
+        }
+
+        .form-group label[for="formType"] {
+            text-align: center;
+        }
+
+        .form-group input:not(uc-form-input input),
+        .form-group textarea,
+        select:not(uc-form-input select) {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #FFD042;
+            border-radius: 5px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD042' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+            padding-right: 3rem;
+        }
+
+        select option {
+            background: #1A1A1A;
+            color: #FFFFFF;
+        }
+
+        select option[value=""] {
+            color: #B8B8B8;
+        }
+
+        select:invalid {
+            color: #B8B8B8;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(184, 184, 184, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #FFD042;
+            background: #2D2D2D;
+            box-shadow: 0 0 10px rgba(255, 208, 66, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+            line-height: 1.5;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(0.5) sepia(1) hue-rotate(180deg);
+            cursor: pointer;
+        }
+
+        .form-fields h3 {
+            color: #FFD042;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 208, 66, 0.2);
+        }
+
+        .form-fields h3:first-child {
+            margin-top: 1rem;
+        }
+
+        .required {
+            color: #FFD042;
+            margin-left: 0.2rem;
+        }
+
+        input:invalid:not(:focus):not(:placeholder-shown),
+        textarea:invalid:not(:focus):not(:placeholder-shown) {
+            border-color: #FF0066;
+        }
+
+        input:valid:not(:focus):not(:placeholder-shown),
+        textarea:valid:not(:focus):not(:placeholder-shown),
+        select:valid:not(:focus):not([value=""]) {
+            border-color: #00FF66;
+        }
+
+        input:disabled,
+        textarea:disabled,
+        select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .submit-button {
+            background: #FFD042;
+            color: #0D0D0D;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(255, 208, 66, 0.3);
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 208, 66, 0.5);
+        }
+
+        .submit-button:disabled {
+            background: #2D2D2D;
+            color: #B8B8B8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-status {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .form-status.success {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid #00FF66;
+            color: #00FF66;
+        }
+
+        .form-status.error {
+            background: rgba(255, 0, 102, 0.1);
+            border: 1px solid #FF0066;
+            color: #FF0066;
+        }
+
+        .form-status.loading {
+            background: rgba(255, 208, 66, 0.1);
+            border: 1px solid #FFD042;
+            color: #FFD042;
+        }
+
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .form-fields {
+            animation: fadeIn 0.3s ease;
+        }
+
+        noscript {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 0, 102, 0.1);
+            border: 1px solid #FF0066;
+            color: #FF0066;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        /* Uploadcare Custom Theme Class */
+        .uploadcare-dark-theme {
+            /* Primary Accent Color - Yellow #FFD042 in OKLCH */
+            --uc-primary-oklch-dark: 87% 0.16 90;
+            
+            /* Background and Text Colors */
+            --uc-background-dark: #0D0D0D;
+            --uc-foreground-dark: #B8B8B8;
+            --uc-border-dark: rgba(255, 208, 66, 0.3);
+            
+            /* Button Colors */
+            --uc-simple-btn-dark: #1A1A1A;
+            --uc-simple-btn-hover-dark: #2D2D2D;
+            --uc-simple-btn-foreground-dark: #B8B8B8;
+            
+            /* Border Radius */
+            --uc-radius: 5px;
+            
+            /* Backdrop */
+            --uc-backdrop-dark: 0, 0, 0;
+            --uc-backdrop-opacity-dark: 0.8;
+        }
+
+        /* Uploadcare Button - Flat Input Style */
+        .uploadcare-dark-theme uc-simple-btn button {
+            border: 1px solid #FFD042 !important;
+            background: #1A1A1A !important;
+            color: #B8B8B8 !important;
+            padding: 1rem !important;
+            border-radius: 5px !important;
+            font-family: inherit !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            width: 100% !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Uploadcare Button Hover State */
+        .uploadcare-dark-theme uc-simple-btn button:hover {
+            background: #2D2D2D !important;
+            border-color: #FFD042 !important;
+            transform: none !important;
+            box-shadow: 0 0 10px rgba(255, 208, 66, 0.2) !important;
+        }
+
+        /* Uploadcare Button Focus State */
+        .uploadcare-dark-theme uc-simple-btn button:focus {
+            outline: none !important;
+            border-color: #FFD042 !important;
+            box-shadow: 0 0 10px rgba(255, 208, 66, 0.2) !important;
+        }
+
+        /* Uploadcare Done Button Override */
+        .uploadcare-dark-theme .uc-done-btn {
+            background: #FFD042 !important;
+            color: #0D0D0D !important;
+            border: none !important;
+            padding: 0.5rem 2rem !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .uploadcare-dark-theme .uc-done-btn:hover {
+            background: #FFFFFF !important;
+            transform: scale(1.05) !important;
+        }
+
+        /* Upload Button Container */
+        .uploadcare-dark-theme uc-simple-btn {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        /* Uploadcare File Uploader Container */
+        .form-group.file-uploader-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Label for Uploadcare File Uploader */
+        .file-uploader-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #B8B8B8;
+        }
+
+        
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: #0D0D0D;
+            color: #B8B8B8;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 208, 66, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #B8B8B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FFD042;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot-nav button {
+                font-size: 2.5rem;
+                padding: 0.5rem;
+            }
+
+            .form-fields h3 {
+                font-size: 1rem;
+            }
+
+            input, textarea, select {
+                font-size: 16px;
+            }
+
+            /* iPhone Mockup on Mobile */
+            .phone {
+                max-width: 280px;
+                border-width: 12px;
+            }
+
+            .dynamic-island {
+                width: 100px;
+                height: 28px;
+                top: 10px;
+            }
+
+            /* Uploadcare on Mobile */
+            uc-modal {
+                --uc-modal-max-width: 95vw;
+                --uc-modal-max-height: 90vh;
+            }
+
+            uc-simple-btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 0.4rem;
+                font-size: 0.8rem;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 0.15rem 0;
+            }
+ 
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: -0.01em;
+                margin-right: 0.4rem;
+            }
+        }
+
+    </style>
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://unpkg.com/@botpoison/browser" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/file-uploader.min.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/uc-file-uploader-regular.min.css" as="style">
+
+    <!-- Botpoison Script -->
+    <script src="https://unpkg.com/@botpoison/browser" integrity="sha384-zphvm0Yde3Sf+u7RmUEzW77Em/ZeXljT77XMF3SGSJDAoiTCN9vdSk2PeItXgQHZ" crossorigin="anonymous"></script>
+
+    <!-- Rybbit Analytics Script -->
+    <script src="https://app.rybbit.io/api/script.js" data-site-id="986" async defer></script>
+
+    <!-- Uploadcare Script -->
+    <script type="module">
+        import * as UC from 'https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/file-uploader.min.js';
+        UC.defineComponents(UC);
+    </script>
+
+    <!-- Uploadcare File Uploader v1 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/uc-file-uploader-regular.min.css">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">The Wastelander</a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <video class="video-background" autoplay muted loop playsinline>
+            <source src="placeholder-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>WES TEK</h1>
+            <p class="presents">presents</p>
+            <h2>The Wastelander</h2>
+            <p class="tagline">A Post-Apocalyptic Fallout 76 Companion App</p>
+            <a href="#screenshots" class="cta-button">Screenshots</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⭐️</div>
+                    <h3 class="feature-title">Atomic Shop</h3>
+                    <p>Preview current and upcoming Atomic Shop items and bundles.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3 class="feature-title">Builds</h3>
+                    <p>Design and save perk card loadouts, legendary perks, mutations, and buffs for any character playstyle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">☑️</div>
+                    <h3 class="feature-title">Checklists</h3>
+                    <p>Track your progress with comprehensive checklists for quests, collectibles, challenges, etc.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Community Calendar</h3>
+                    <p>Stay on top of in-game events with an always-updated calendar and notifications.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⛨</div>
+                    <h3 class="feature-title">God Rolls</h3>
+                    <p>Craft the perfect weapon with the best mods and legendary effects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📒</div>
+                    <h3 class="feature-title">Guides</h3>
+                    <p>Step-by-step guides for beginners, events, quests, crafting, etc.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3 class="feature-title">Maps</h3>
+                    <p>Explore interactive maps with markers for resources, spawn points, vendors, etc.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3 class="feature-title">Minerva</h3>
+                    <p>See Minerva’s current location, full gold-bullion inventory, and her upcoming schedule at a glance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔢</div>
+                    <h3 class="feature-title">Nuke Codes</h3>
+                    <p>Access decrypted silo launch codes and suggested blast zones.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">S.C.O.R.E. Calculator</h3>
+                    <p>Forecast your season progress by tracking your total S.C.O.R.E. points.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">‼</div>
+                    <h3 class="feature-title">Tips</h3>
+                    <p>Access tips and strategies to optimize your time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Updates</h3>
+                    <p>Read the latest patch notes, hotfix details, and Inside the Vault news.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Wiki</h3>
+                    <p>Browse comprehensive Fallout 76 lore, item stats, and other information directly in-app.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛸</div>
+                    <h3 class="feature-title">3rd Party Tiles</h3>
+                    <p>Quick-launch tiles to trusted community tools, content creators, and more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2>Screenshots</h2>
+            <div class="screenshots-showcase">
+                <div class="phone">
+                    <!-- Dynamic Island for iPhone 14/15 -->
+                    <div class="dynamic-island"></div>
+                    <!-- Alternative: iPhone X-13 Notch -->
+                    <!-- <div class="notch"></div> -->
+                    
+                    <!-- Side Buttons -->
+                    <div class="side-button power-button"></div>
+                    <div class="side-button volume-up"></div>
+                    <div class="side-button volume-down"></div>
+                    <div class="side-button mute-switch"></div>
+                    
+                    <!-- Screen Content -->
+                    <div class="screen-container">
+                        <div class="screenshot-slides" id="screenshotSlides">
+                            <div class="screenshot-slide">
+                                <img src="assets/images/screenshots/community-calendar.png" alt="Community Calendar">
+                            </div>
+                            <div class="screenshot-slide">
+                                <img src="assets/images/screenshots/god-rolls.png" alt="God Rolls">
+                            </div>
+                            <div class="screenshot-slide">
+                                <img src="assets/images/screenshots/nuke-codes.png" alt="Nuke Codes">
+                            </div>
+                        </div>
+                        <!-- Home Indicator -->
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+                
+                <!-- Arrow Buttons -->
+                <div class="screenshot-nav">
+                    <button onclick="changeScreenshot(-1)">‹</button>
+                    <button onclick="changeScreenshot(1)">›</button>
+                </div>
+
+                <!-- Screenshot Information -->
+                <div class="screenshot-info">
+                    <h3 id="screenshotName">Community Calendar</h3>
+                    <p id="screenshotDescription">Never miss a public event with real-time notifications.</p>
+                </div>
+                
+                <!-- SEO Hidden Content -->
+                <div class="seo-content">
+                    <div class="seo-screenshot-info">
+                        <h3>Community Calendar</h3>
+                        <p>Never miss a public event with real-time notifications.</p>
+                    </div>
+                    <div class="seo-screenshot-info">
+                        <h3>God Rolls</h3>
+                        <p>Craft the perfect weapon with the best mods and legendary effects.</p>
+                    </div>
+                    <div class="seo-screenshot-info">
+                        <h3>Nuke Codes</h3>
+                        <p>Access decrypted silo launch codes and suggested blast zones.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <!-- Headline -->
+                <h2>Download</h2>
+                
+                <!-- Product Image/Mockup -->
+                <div class="app-showcase">
+                    <img src="assets/images/download/the-wastelander.png" 
+                        alt="The Wastelander" 
+                        class="app-mockup">
+                </div>
+                
+                <!-- App Name -->
+                <h3 class="app-name">The Wastelander</h3>
+                
+                <!-- Subtitle/Tagline -->
+                <p class="app-tagline">Your Ultimate Fallout 76 Companion</p>
+                
+                <!-- App Store Badge -->
+                <a href="https://apps.apple.com/app/the-wastelander" class="app-store-link" target="_blank" rel="noopener">
+                    <img src="assets/images/badges/pre-order.svg" 
+                        alt="Pre-order on the App Store" 
+                        class="pre-order-badge">
+                </a>
+                
+                <!-- Pre-Order Badge -->
+                <!--
+                <a href="https://apps.apple.com/app/the-wastelander" class="app-store-link" target="_blank" rel="noopener">
+                    <img src="assets/images/badges/download.svg" 
+                        alt="Download on the App Store" 
+                        class="app-store-badge">
+                </a>
+                -->
+                
+                <p class="download-note">
+                    Pre-order for iPhone and iPad • Requires iOS 17.0 or Later
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            
+            <noscript>
+                JavaScript is required to use the contact form. Please email us at support@thewastelander.app instead.
+            </noscript>
+            
+            <!-- Status Message -->
+            <div id="formStatus" class="form-status"></div>
+            
+            <!-- Enhanced Form with Formspark and Botpoison -->
+            <form
+                id="contactForm"
+                class="contact-form"
+                action="https://submit-form.com/OdskR228S"
+                method="POST"
+            >
+                <!-- Honeypot Field for Additional Spam Protection -->
+                <input type="checkbox" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+                
+                <!-- Form Type Selection -->
+                <div class="form-group">
+                    <label for="formType">How may we be of service?</label>
+                    <select id="formType" name="formType" required>
+                        <option value="">Select an Option</option>
+                        <option value="accuracy">Accuracy Report</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feedback">Feedback</option>
+                        <option value="question">Question</option>
+                        <option value="suggestion">Suggestion</option>
+                    </select>
+                </div>
+                
+                <!-- Dynamic Form Fields Container -->
+                <div id="dynamicFields" style="display: none;">
+                    
+                    <!-- Accuracy Report Fields -->
+                    <div id="accuracyFields" class="form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="accuracy_name">Name <span class="required">*</span></label>
+                            <input type="text" id="accuracy_name" name="name" placeholder="John Fallout" pattern="[A-Za-z\s\-']+" title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)">
+                        </div>
+                        <div class="form-group">
+                            <label for="accuracy_email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="accuracy_email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="accuracy_description">Description <span class="required">*</span></label>
+                            <textarea id="accuracy_description" name="description" rows="5" placeholder="I noticed that the Wiki section has some outdated information due to the most recent update. For example, a few of the Perk Cards are no longer accurate." maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Bug Report Fields -->
+                    <div id="bugFields" class="form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="bug_name">Name <span class="required">*</span></label>
+                            <input type="text" id="bug_name" name="name" placeholder="John Fallout" pattern="[A-Za-z\s\-']+" title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)">
+                        </div>
+                        <div class="form-group">
+                            <label for="bug_email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="bug_email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="bug_appVersion">App Version</label>
+                            <input type="text" id="bug_appVersion" name="appVersion" placeholder="1.2.3" pattern="[0-9]+(\.[0-9]+)*" title="Please enter a valid version number (e.g., 1.2.3)">
+                        </div>
+                        <div class="form-group">
+                            <label for="bug_deviceModel">Device Model</label>
+                            <input type="text" id="bug_deviceModel" name="deviceModel" placeholder="iPhone 14 Pro, iPad Air, etc" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="bug_iosVersion">iOS Version</label>
+                            <input type="text" id="bug_iosVersion" name="iosVersion" placeholder="17.2.1, 18.5, etc" pattern="[0-9]+(\.[0-9]+)*" title="Please enter a valid iOS version (e.g., 17.2.1)">
+                        </div>
+                        <!-- Uploadcare V1 Configuration and File Uploader -->
+                        <div class="form-group file-uploader-group">
+                            <label class="file-uploader-label">Attachments</label>
+                            <!-- Uploadcare Configuration -->
+                            <uc-config 
+                                ctx-name="bug-report-uploader" 
+                                pubkey="1d921fe3bd33e079178f"
+                                multiple="true"
+                                max-local-file-size-bytes="10485760"
+                                accept="image/*,video/*"
+                                img-only="false"
+                                source-list="local, camera"
+                                group-output="true"
+                            ></uc-config>
+                            <!-- File Uploader with Form Input -->
+                            <uc-file-uploader-regular 
+                                ctx-name="bug-report-uploader"
+                                class="uc-dark uploadcare-dark-theme"
+                            >
+                                <uc-form-input 
+                                    ctx-name="bug-report-uploader"
+                                    name="attachments"
+                                ></uc-form-input>
+                            </uc-file-uploader-regular>
+                        </div>
+                        <div class="form-group">
+                            <label for="bug_description">Description <span class="required">*</span></label>
+                            <textarea id="bug_description" name="description" rows="5" placeholder="I am unable to open the Checklists section of the app. When I tap the tile, nothing happens. I have tried restarting both the app and my iOS device but the issue persists." maxlength="1000"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Fields -->
+                    <div id="feedbackFields" class="form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="feedback_name">Name <span class="required">*</span></label>
+                            <input type="text" id="feedback_name" name="name" placeholder="John Fallout" pattern="[A-Za-z\s\-']+" title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback_email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="feedback_email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback_description">Description <span class="required">*</span></label>
+                            <textarea id="feedback_description" name="description" rows="5" placeholder="The Wastelander is my favourite app!" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Question Fields -->
+                    <div id="questionFields" class="form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="question_name">Name <span class="required">*</span></label>
+                            <input type="text" id="question_name" name="name" placeholder="John Fallout" pattern="[A-Za-z\s\-']+" title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)">
+                        </div>
+                        <div class="form-group">
+                            <label for="question_email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="question_email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="question_description">Description <span class="required">*</span></label>
+                            <textarea id="question_description" name="description" rows="5" placeholder="Why is this app so cool?!" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Suggestion Fields -->
+                    <div id="suggestionFields" class="form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="suggestion_name">Name <span class="required">*</span></label>
+                            <input type="text" id="suggestion_name" name="name" placeholder="John Fallout" pattern="[A-Za-z\s\-']+" title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)">
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion_email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="suggestion_email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion_description">Description <span class="required">*</span></label>
+                            <textarea id="suggestion_description" name="description" rows="5" placeholder="I think it would be awesome if we could submit C.A.M.P. photos and have them showcased in the app!" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hidden Fields for Additional Context -->
+                <input type="hidden" name="_subject" value="New Contact Form Submission from The Wastelander">
+                <input type="hidden" name="_website" value="thewastelander.app">
+                <input type="hidden" name="appName" value="The Wastelander">
+                
+                <button type="submit" id="submitButton" class="submit-button" style="display: none;">
+                    <span id="buttonText">Send Message</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="mailto:support@wastelander.app" onclick="openSupportEmail(event)">Support</a>
+            </div>
+            <p>&copy; The Wastelander. 2025. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Screenshot Slider
+        let currentScreenshot = 0;
+        const screenshotSlides = document.getElementById('screenshotSlides');
+        const screenshotNames = ['Community Calendar', 'God Rolls', 'Nuke Codes'];
+        const screenshotDescriptions = [
+            'Never miss a public event with real-time notifications!',
+            'Craft the perfect weapon with the best mods and legendary effects!',
+            'Access decrypted silo launch codes and suggested blast zones!'
+        ];
+
+        // Changes the Displayed Screenshot in the iPhone Frame
+        function changeScreenshot(direction) {
+            currentScreenshot = (currentScreenshot + direction + screenshotNames.length) % screenshotNames.length;
+            screenshotSlides.style.transform = `translateX(-${currentScreenshot * 100}%)`;
+            
+            // Update Screenshot Info
+            document.getElementById('screenshotName').textContent = screenshotNames[currentScreenshot];
+            document.getElementById('screenshotDescription').textContent = screenshotDescriptions[currentScreenshot];
+        }
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation Active State Based on Scroll Position
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Form Submission with Botpoison Integration
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = document.getElementById('buttonText');
+            const formStatus = document.getElementById('formStatus');
+            const formTypeSelect = document.getElementById('formType');
+            const dynamicFields = document.getElementById('dynamicFields');
+            
+            // Form Field Configurations
+            const formConfigs = {
+                bug: {
+                    fields: 'bugFields',
+                    requiredFields: ['name', 'email', 'description'],
+                    subject: 'Bug Report'
+                },
+                feedback: {
+                    fields: 'feedbackFields',
+                    requiredFields: ['name', 'email', 'description'],
+                    subject: 'Feedback'
+                },
+                accuracy: {
+                    fields: 'accuracyFields',
+                    requiredFields: ['name', 'email', 'description'],
+                    subject: 'Accuracy Report'
+                },
+                question: {
+                    fields: 'questionFields',
+                    requiredFields: ['name', 'email', 'description'],
+                    subject: 'Question'
+                },
+                suggestion: {
+                    fields: 'suggestionFields',
+                    requiredFields: ['name', 'email', 'description'],
+                    subject: 'Suggestion'
+                }
+            };
+
+            // Handle Form Type Selection
+            formTypeSelect.addEventListener('change', function() {
+                const selectedType = this.value;
+                
+                // Hide All Field Sets
+                document.querySelectorAll('.form-fields').forEach(fields => {
+                    fields.style.display = 'none';
+                    // Remove Required Attribute from All Inputs
+                    fields.querySelectorAll('input, textarea, select').forEach(input => {
+                        input.removeAttribute('required');
+                        input.disabled = true;
+                    });
+                });
+                
+                // Show Selected Field Set
+                if (selectedType && formConfigs[selectedType]) {
+                    dynamicFields.style.display = 'block';
+                    submitButton.style.display = 'block';
+                    
+                    const selectedFields = document.getElementById(formConfigs[selectedType].fields);
+                    selectedFields.style.display = 'block';
+                    
+                    // Enable Inputs and Set Required Fields
+                    selectedFields.querySelectorAll('input, textarea, select').forEach(input => {
+                        input.disabled = false;
+                        
+                        // Check if This Field Should Be Required
+                        const fieldName = input.name;
+                        if (formConfigs[selectedType].requiredFields.includes(fieldName)) {
+                            input.setAttribute('required', 'required');
+                        }
+                    });
+                    
+                    // Update Form Subject
+                    const subjectField = form.querySelector('input[name="_subject"]');
+                    subjectField.value = `${formConfigs[selectedType].subject} - The Wastelander`;
+                } else {
+                    dynamicFields.style.display = 'none';
+                    submitButton.style.display = 'none';
+                }
+            });
+
+            // Sanitize Input Function
+            function sanitizeInput(input) {
+                // Remove Any HTML Tags
+                input = input.replace(/<[^>]*>/g, '');
+                // Escape Special Characters
+                input = input.replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#x27;')
+                            .replace(/\//g, '&#x2F;');
+                return input.trim();
+            }
+
+            // Validate All Inputs Before Submission
+            function validateForm() {
+                const selectedType = formTypeSelect.value;
+                if (!selectedType) return false;
+                
+                const activeFields = document.getElementById(formConfigs[selectedType].fields);
+                const inputs = activeFields.querySelectorAll('input:not([disabled]):not(uc-form-input), textarea:not([disabled]), select:not([disabled])');
+                
+                for (let input of inputs) {
+                    // Check HTML5 Validation
+                    if (!input.checkValidity()) {
+                        input.reportValidity();
+                        return false;
+                    }
+                    
+                    // Additional Validation for Specific Fields
+                    if (input.type === 'email') {
+                        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                        if (!emailPattern.test(input.value)) {
+                            showStatus('error', '❌ Please enter a valid email address.');
+                            input.focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (input.name === 'name' && input.value) {
+                        const namePattern = /^[A-Za-z\s\-']+$/;
+                        if (!namePattern.test(input.value)) {
+                            showStatus('error', '❌ Please enter a valid name (letters, spaces, hyphens, and apostrophes only).');
+                            input.focus();
+                            return false;
+                        }
+                    }
+                    
+                    if ((input.name.includes('Version') || input.name === 'appVersion') && input.value) {
+                        const versionPattern = /^[0-9]+(\.[0-9]+)*$/;
+                        if (!versionPattern.test(input.value)) {
+                            showStatus('error', '❌ Please enter a valid version number (e.g., 1.2.3).');
+                            input.focus();
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            }
+
+            // Show Status Message
+            function showStatus(type, message) {
+                formStatus.className = `form-status ${type}`;
+                formStatus.textContent = message;
+                formStatus.style.display = 'block';
+                
+                // Auto-Hide Success/Error Messages After 5 Seconds
+                if (type !== 'loading') {
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }
+            }
+
+            // Set Loading State
+            function setLoading(isLoading) {
+                submitButton.disabled = isLoading;
+                if (isLoading) {
+                    buttonText.innerHTML = '<span class="loading-spinner"></span>Sending...';
+                    showStatus('loading', 'Processing your message...');
+                } else {
+                    buttonText.textContent = 'Send Message';
+                }
+            }
+
+            // Handle Form Submission with Botpoison
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Validate Form First
+                if (!validateForm()) {
+                    return;
+                }
+                
+                try {
+                    setLoading(true);
+                    
+                    // Initialize Botpoison
+                    const botpoison = new Botpoison({
+                        publicKey: "pk_c5e161aa-defd-4f99-9f77-d10f46fa9215"
+                    });
+
+                    // Get Botpoison Challenge Solution
+                    const { solution } = await botpoison.challenge();
+                    
+                    // Collect Form Data Using FormData API
+                    const formData = new FormData(form);
+                    const jsonData = {};
+                    
+                    // Process Form Data
+                    for (let [key, value] of formData.entries()) {
+                        // Skip Disabled Fields and Internal Uploadcare Fields
+                        const input = form.querySelector(`[name="${key}"]:not([disabled])`);
+                        if (input && !input.closest('uc-form-input')) {
+                            // Sanitize the Input Value
+                            jsonData[key] = sanitizeInput(value);
+                        }
+                    }
+                    
+                    // Add Botpoison Solution
+                    jsonData._botpoison = solution;
+                    
+                    // Submit to Formspark
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(jsonData)
+                    });
+
+                    // Check if Response is OK
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('Success:', result);
+                        showStatus('success', '✅ Thank you! Your message has been sent successfully. We\'ll get back to you soon.');
+                        
+                        // Reset Form
+                        form.reset();
+                        dynamicFields.style.display = 'none';
+                        submitButton.style.display = 'none';
+                        
+                        // Clear Uploadcare Files
+                        const fileUploader = document.querySelector('uc-file-uploader-regular');
+                        if (fileUploader && fileUploader.clear) {
+                            fileUploader.clear();
+                        }
+                    } else {
+                        // Get Error Details if Available
+                        let errorMessage = `HTTP error! status: ${response.status}`;
+                        try {
+                            const errorData = await response.json();
+                            if (errorData.message) {
+                                errorMessage = errorData.message;
+                            }
+                        } catch (e) {
+                            // Use Default Error Message if JSON Parsing Fails
+                        }
+                        throw new Error(errorMessage);
+                    }
+                    
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    
+                    // Handle Specific Error Types
+                    if (error.message.includes('Botpoison')) {
+                        showStatus('error', '❌ Security verification failed. Please try again.');
+                    } else if (error.message.includes('400')) {
+                        showStatus('error', '❌ Invalid form data. Please check your entries and try again.');
+                    } else if (error.message.includes('429')) {
+                        showStatus('error', '❌ Too many requests. Please wait a moment and try again.');
+                    } else {
+                        showStatus('error', '❌ Sorry, there was an error sending your message. Please try again or contact us directly at support@thewastelander.app');
+                    }
+                } finally {
+                    setLoading(false);
+                }
+            });
+
+            // Listen for Botpoison Events (Optional Debugging)
+            form.addEventListener('botpoison:challenge', function() {
+                console.log('Botpoison challenge started.');
+            });
+
+            form.addEventListener('botpoison:solved', function() {
+                console.log('Botpoison challenge solved.');
+            });
+
+            form.addEventListener('botpoison:error', function(e) {
+                console.error('Botpoison Error:', e.detail);
+                showStatus('error', '❌ Security verification failed. Please refresh the page and try again.');
+            });
+            
+            // Add Input Event Listeners for Real-Time Validation
+            form.addEventListener('input', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                    // Remove Any Existing Error Styling When User Starts Typing
+                    e.target.style.borderColor = '';
+                }
+            });
+        });
+
+        // Initialize Uploadcare V1
+        document.addEventListener('DOMContentLoaded', function() {
+        // Get the File Uploader Element
+        const fileUploader = document.querySelector('uc-file-uploader-regular');
+        
+        if (!fileUploader) {
+            return;
+        }
+        
+        // Text Capitalization for Uploadcare
+        const textReplacements = {
+            'upload files': 'Upload Files',
+            'from device': 'From Device',
+            'camera': 'Camera',
+            'drop files here': 'Drop Files Here'
+        };
+        
+        // Function to Apply Text Replacements
+        function capitalizeUploadcareText() {
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.parentElement && node.parentElement.closest('uc-file-uploader-regular, uc-modal')) {
+                    const text = node.textContent;
+                    const lowerText = text.toLowerCase().trim();
+                    if (textReplacements[lowerText]) {
+                        node.textContent = textReplacements[lowerText];
+                    }
+                }
+            }
+        }
+        
+        // Apply on Modal Open
+        document.addEventListener('uc-modal-open', () => {
+            setTimeout(() => {
+                capitalizeUploadcareText();
+                // Force Dark Background on Modal Footer
+                const footer = document.querySelector('.uc-upload-list__footer');
+                if (footer) {
+                    footer.style.backgroundColor = '#0D0D0D';
+                }
+            }, 200);
+        });
+        
+        // Apply to Button Text
+        setTimeout(() => {
+            capitalizeUploadcareText();
+        }, 100);
+        
+        // Listen for Upload Success
+        fileUploader.addEventListener('uc-upload-success', (event) => {
+            console.log('Files uploaded successfully:', event.detail);
+        });
+        
+        // Listen for File Removal
+        fileUploader.addEventListener('uc-file-removed', (event) => {
+            console.log('File removed:', event.detail);
+        });
+        });
+
+        // Support Email Handler
+        function openSupportEmail(event) {
+            event.preventDefault();
+            const subject = encodeURIComponent('Support Request - The Wastelander');
+            const body = encodeURIComponent(
+                'Please provide the following information to help us assist you:\n\n' +
+                'Full Name: \n' +
+                'Email Address: \n\n' +
+                'App Version: \n' +
+                'Device Model: [iPhone 14 Pro, iPad Air, etc]\n' +
+                'iOS Version: [17.2.1, 18.5, etc]\n' +
+                'Reason for Request: \n\n' +
+
+                'Thank you for using The Wastelander!'
+            );
+            
+            window.location.href = `mailto:support@thewastelander.app?subject=${subject}&body=${body}`;
+        }
+
+
+        
+        // Scroll Animations
+        function handleScroll() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(13, 13, 13, 0.98)';
+                nav.style.padding = '0.5rem 0';
+            } else {
+                nav.style.background = 'rgba(13, 13, 13, 0.95)';
+                nav.style.padding = '1rem 0';
+            }
+            
+            // Update Active Navigation State
+            updateActiveNav();
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set Initial States
+            handleScroll();
+            updateActiveNav();
+        });
+    </script>
+</body>
+</html>
