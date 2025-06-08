@@ -1085,29 +1085,21 @@
 
     </style>
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="https://unpkg.com/@botpoison/browser" as="script" integrity="sha384-zphvm0Yde3Sf+u7RmUEzW77Em/ZeXljT77XMF3SGSJDAoiTCN9vdSk2PeItXgQHZ" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/file-uploader.min.js" as="script" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/uc-file-uploader-regular.min.css" as="style">
-
     <!-- Botpoison Script -->
     <script src="https://unpkg.com/@botpoison/browser" integrity="sha384-zphvm0Yde3Sf+u7RmUEzW77Em/ZeXljT77XMF3SGSJDAoiTCN9vdSk2PeItXgQHZ" crossorigin="anonymous"></script>
 
-    <!-- Disable Rybbit’s Experimental Web Vitals Loader -->
+    <!-- Disable Rybbit Experimental Web Vitals -->
     <script>window.__rybbitWebVitalsLoaded = true;</script>
 
     <!-- Rybbit Analytics Script -->
     <script src="https://app.rybbit.io/api/script.js" data-site-id="986" async defer></script>
 
-    <!-- Uploadcare Script -->
-    <script type="module">
-        import * as UC from 'https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/file-uploader.min.js';
-        UC.defineComponents(UC);
-    </script>
+    <!-- Uploadcare Module -->
+    <script type="module">import * as UC from 'https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/file-uploader.min.js';UC.defineComponents(UC);</script>
 
     <!-- Uploadcare File Uploader CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@v1/web/uc-file-uploader-regular.min.css">
-
+    
 </head>
 <body>
     <!-- Navigation -->
