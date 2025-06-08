@@ -1,0 +1,10 @@
+# Robots.txt - 2025
+
+User-agent: *
+
+Allow: /
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /.well-known/
+
+Sitemap: https://wastelander.app/sitemap.xml
