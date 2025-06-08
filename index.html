@@ -1958,18 +1958,74 @@
         });
     </script>
 
-    <!-- Web Vitals Script -->
+    <!-- Web Vitals Script with Rybbit Integration and Error Handling -->
     <script type="module">
-        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js';
-        
-        function sendToAnalytics(metric) {
-            // Replace with your analytics endpoint
-            console.log(metric);
+        try {
+            const {onCLS, onFID, onLCP} = await import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js');
+            
+            function sendToAnalytics({name, value, delta, id}) {
+                // Ensure Rybbit is Loaded before Sending
+                const sendMetric = () => {
+                    if (window.rybbit?.event) {
+                        window.rybbit.event(name, {
+                            value: Math.round(name === 'CLS' ? value * 1000 : value),
+                            delta: Math.round(name === 'CLS' ? delta * 1000 : delta),
+                            id: id,
+                            category: 'Web Vitals',
+                            metric_type: 'performance'
+                        });
+                        console.log(`[Web Vitals] ${name} sent to Rybbit:`, value);
+                    } else {
+                        // Retry if Rybbit isn't Ready Yet
+                        setTimeout(sendMetric, 500);
+                    }
+                };
+                
+                sendMetric();
+            }
+            
+            // Register all Web Vitals Metrics
+            onCLS(sendToAnalytics);
+            onFID(sendToAnalytics);
+            onLCP(sendToAnalytics);
+            
+            console.log('[Web Vitals] Successfully initialized with Rybbit integration');
+        } catch (error) {
+            // Handle Content Blocker Gracefully
+            console.log('[Web Vitals] Blocked by content blocker - attempting fallback');
+            
+            // Fallback: Try Loading from an Alternative CDN
+            try {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/web-vitals@3/dist/web-vitals.attribution.umd.js';
+                script.onload = () => {
+                    if (window.webVitals) {
+                        const {onCLS, onFID, onLCP} = window.webVitals;
+                        
+                        function sendToAnalytics({name, value, delta, id}) {
+                            if (window.rybbit?.event) {
+                                window.rybbit.event(name, {
+                                    value: Math.round(name === 'CLS' ? value * 1000 : value),
+                                    delta: Math.round(name === 'CLS' ? delta * 1000 : delta),
+                                    id: id,
+                                    category: 'Web Vitals',
+                                    metric_type: 'performance'
+                                });
+                            }
+                        }
+                        
+                        onCLS(sendToAnalytics);
+                        onFID(sendToAnalytics);
+                        onLCP(sendToAnalytics);
+                        
+                        console.log('[Web Vitals] Loaded via fallback CDN');
+                    }
+                };
+                document.head.appendChild(script);
+            } catch (fallbackError) {
+                console.log('[Web Vitals] Fallback also blocked');
+            }
         }
-        
-        onCLS(sendToAnalytics);
-        onFID(sendToAnalytics);
-        onLCP(sendToAnalytics);
     </script>
 
 </body>
