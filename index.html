@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary Meta Tags -->
-    <title>The Wastelander - Fallout 76 Companion App</title>
+    <title>The Wastelander | Fallout 76 Companion App</title>
     <meta name="title" content="The Wastelander | Fallout 76 Companion App">
     <meta name="description" content="The ultimate Fallout 76 companion app for iOS.">
     <meta name="author" content="Wesley Synnott">
@@ -21,7 +21,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://wastelander.app/">
-    <meta property="twitter:title" content="The Wastelander - Fallout 76 Companion App">
+    <meta property="twitter:title" content="The Wastelander | Fallout 76 Companion App">
     <meta property="twitter:description" content="The ultimate Fallout 76 companion app for iOS.">
     <meta property="twitter:image" content="https://wastelander.app/assets/badges/twitter.jpg">
     
@@ -42,8 +42,8 @@
         default-src 'self';
         script-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://ucarecdn.com https://submit-form.com https://app.rybbit.io 'unsafe-inline';
         style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
-        img-src 'self' data: https:;
-        connect-src 'self' https://submit-form.com https://api.botpoison.com https://app.rybbit.io;
+        img-src 'self' data: https: blob:;
+        connect-src 'self' https://submit-form.com https://api.botpoison.com https://app.rybbit.io https://upload.uploadcare.com;
         frame-ancestors 'none';
     ">
     
@@ -1110,7 +1110,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#home" class="logo">The Wastelander</a>
+            <a href="index.html" class="logo">The Wastelander</a>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#features" class="nav-link">Features</a></li>
@@ -1742,7 +1742,7 @@
                     
                     // Initialize Botpoison
                     const botpoison = new Botpoison({
-                        publicKey: "pk_c5e161aa-defd-4f99-9f77-d10f46fa9215"
+                        publicKey: "pk_506c915d-a8ba-470b-901a-3dad6278c8b2"
                     });
 
                     // Get Botpoison Challenge Solution
@@ -1957,5 +1957,20 @@
             updateActiveNav();
         });
     </script>
+
+    <!-- Web Vitals Script -->
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js';
+        
+        function sendToAnalytics(metric) {
+            // Replace with your analytics endpoint
+            console.log(metric);
+        }
+        
+        onCLS(sendToAnalytics);
+        onFID(sendToAnalytics);
+        onLCP(sendToAnalytics);
+    </script>
+
 </body>
 </html>
